@@ -1,0 +1,6 @@
+.idea/
+*.svg
+*.pkl
+*.zip
+data/ChEMBL-backup/
+data/SyntaLinker_n

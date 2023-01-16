@@ -1,0 +1,63 @@
+# Build vocab
+save_data: vocab/
+src_vocab: vocab/syntalinker.vocab.src
+tgt_vocab: vocab/syntalinker.vocab.tgt
+overwrite: False
+data:
+    corpus_1:
+        path_src: data/ChEMBL/src-train
+        path_tgt: data/ChEMBL/tgt-train
+    valid:
+        path_src: data/ChEMBL/src-val
+        path_tgt: data/ChEMBL/tgt-val
+src_seq_length: 1000
+tgt_seq_lenth: 1000
+share_vocab: true
+
+# General opts
+save_model: checkpoints/
+save_checkpoint_steps: 10000
+keep_checkpoint: 20
+valid_steps: 10000
+train_steps: 500000
+share_embeddings: true
+report_every: 1000
+seed: 42
+
+# Batching
+bucket_size: 262144
+world_size: 1
+gpu_ranks: [0]
+batch_type: "tokens"
+batch_size: 4096
+valid_batch_size: 32
+accum_count: [4]
+accum_steps: [0]
+
+
+# Optimization
+model_dtype: "fp32"
+optim: "adam"
+learning_rate: 2
+warmup_steps: 8000
+decay_method: "noam"
+adam_beta1: 0.9
+adam_beta2: 0.998
+max_grad_norm: 0
+label_smoothing: 0.0
+param_init: 0
+param_init_glorot: true
+normalization: "tokens"
+
+# Model
+encoder_type: transformer
+decoder_type: transformer
+position_encoding: true
+enc_layers: 4
+dec_layers: 4
+heads: 8
+word_vec_size: 256
+transformer_ff: 2048
+dropout_steps: [0]
+dropout: [0.1]
+attention_dropout: [0.1]
