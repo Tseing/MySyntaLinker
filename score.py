@@ -256,7 +256,7 @@ def score(test_df: DataFrame, train_df: DataFrame, linker_df: DataFrame, dataset
         process_df = test_df
         process_column = "canonical_prediction"
 
-        corrects = [(test_df['rank'] == i).sum() for i in range(top_n)]
+        corrects = [(test_df['rank'] == i + 1).sum() for i in range(top_n)]
         scores["recovery"] = [sum(corrects[:i + 1]) / (total * (i + 1)) * 100 for i in range(top_n)]
         scores["SLBD"] = [sum(SLBD[:i + 1] / (total * (i + 1)) * 100) for i in range(top_n)]
         scores["SLBD_leq"] = [sum(SLBD_leq[:i + 1] / (total * (i + 1)) * 100) for i in range(top_n)]
@@ -330,8 +330,6 @@ if __name__ == "__main__":
     table.add_row(["SLBD"] + scores['SLBD'])
     table.add_row(["SLBD (leq 1)"] + scores['SLBD_leq'])
 
-    print(table)
-
     if opt["score_linker"]:
         scores = score(linker_df, train_df, linker_df, "linker")
 
@@ -341,5 +339,7 @@ if __name__ == "__main__":
         linker_table.add_row(["Novelty"] + scores['novelty'])
 
         print(linker_table)
+
+    print(table)
 
     print("")
