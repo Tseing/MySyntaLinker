@@ -52,4 +52,4 @@ for i in range(row):
         index += 1
 
 plt.show()
-# plt.savefig("distribution.svg")
+# plt.savefig("distribution.svg", bbox_inches='tight')
